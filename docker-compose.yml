@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  app:
+    # ビルドコンテキスト(docker buildを実行する際の作業ディレクトリ)
+    build: ./infra/php
+    volumes:
+      - ./backend:/work
