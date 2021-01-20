@@ -5,3 +5,15 @@ services:
     build: ./infra/php
     volumes:
       - ./backend:/work
+
+  web:
+    image: nginx:1.18-alpine
+    # nginxは1.10, 1.12 等の偶数のバージョンが安定バージョンらしい。
+    ports:
+      - 10080:80
+    # nginxへ外(ホスト側)からコンテナ内へアクセスさせるため公開用のポートを設定(ホスト側:コンテナ側)
+    # ホスト上の10080番ポートをコンテナの80番ポートへ割り当てています。
+    volumes:
+      - ./backend:/work
+      - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    working_dir: /work
